@@ -1,6 +1,6 @@
 #导航
-- [算法](#)
-	- [快速排序](#快速排序)
+-[算法]
+	-[快速排序](#快速排序)
 
 
 ## 快速排序
@@ -16,7 +16,7 @@
 ### 划分算法
 划分算法比较常用的是挖坑填数法，节省空间，不用开辟专门的空间去保存额外的数组
 快速排序中挖坑填数法的伪算法：
-``` 
+``` bash
 BEGIN
 	i=0,j=N-1;  //i,j为数组下标,N为数组长度
 	X=arr[i];
@@ -35,4 +35,51 @@ BEGIN
 END
 ```
 
+###代码示例(默认都是升序)
 
+php版：
+```php
+function qSort(&$arr, $i=null, $j=null)
+{
+	if(!is_array($arr) || count($arr)<=1) return; //不合法，或者不需要排序
+	if($i===null && $j === null)
+	{
+		$i = 0;
+		$j = count($arr)-1;
+	}
+	if($i>=$j) return; //该部分已经排序完毕
+	$begin 	= $i;
+	$end 	= $j;
+	$x 		= $arr[$i];
+	while($i<$j)
+	{
+		while($i<$j && $arr[$j]>=$x) $j--; //从后往前找一个小于$x的值
+		if($i<$j)
+		{
+			$arr[$i] = $arr[$j]; //后面挖坑填前面
+			while($i<$j && $arr[$i]<=$x) $i++;  //从前往后找一个大于$x的值
+			if($i<$j) $arr[$j] = $arr[$i]; //前面挖坑补后面
+		}
+	}
+	if($i != $begin) $arr[$i] = $x;  //将临时变量中的值填入该趟快速排序的最后一个坑
+	qSort($arr, $begin, $i-1);
+	qSort($arr, $i+1, $end);
+}
+
+$arr = array(89,7,5,2,1,2,9);
+qSort($arr);
+print_r($arr);
+```
+结果：
+```javascript
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 2
+    [3] => 5
+    [4] => 7
+    [5] => 9
+    [6] => 89
+)
+```
