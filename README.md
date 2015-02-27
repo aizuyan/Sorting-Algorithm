@@ -2,8 +2,8 @@
 - [算法]
 	- [快速排序](#快速排序)
 		- [代码示例](#代码示例)
-			- [php版](#php版：)
-			- [javascript版]('#javascript版：')
+			- [php版](#php)
+			- [javascript版](#javascript)
 
 
 ## 快速排序
@@ -40,7 +40,7 @@ END
 
 ###代码示例
 
-####php版：
+####php
 ```php
 function qSort(&$arr, $i=null, $j=null)
 {
@@ -89,7 +89,7 @@ Array
 )
 ```
 
-####javascript版：
+####javascript
 ```javascript
 Array.prototype.qSort=function(i,j){
 	if(this.length <= 1) return; //只剩一个元素，该子项排序ok
