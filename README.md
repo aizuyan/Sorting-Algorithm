@@ -69,6 +69,8 @@ function qSort(&$arr, $i=null, $j=null)
 $arr = array(89,7,5,2,1,2,9);
 qSort($arr);
 print_r($arr);
+
+//还有一种是比较简单的没有用到挖坑填数法，直接将大于和小于的数分别放在不同的数组中
 ```
 结果：
 ```javascript
