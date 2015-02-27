@@ -1,6 +1,9 @@
 #导航
 - [算法]
 	- [快速排序](#快速排序)
+		- [代码示例](#代码示例)
+			- [php版](#php版)
+			- [javascript版](#javascript版)
 
 
 ## 快速排序
@@ -37,7 +40,7 @@ END
 
 ###代码示例(默认都是升序)
 
-php版：
+####php版 ：
 ```php
 function qSort(&$arr, $i=null, $j=null)
 {
@@ -84,4 +87,40 @@ Array
     [5] => 9
     [6] => 89
 )
+```
+
+####javascript版 ：
+```javascript
+Array.prototype.qSort=function(i,j){
+	if(this.length <= 1) return; //只剩一个元素，该子项排序ok
+	if(typeof(i)=="undefined" && typeof(j)=="undefined"){ //未设置下标的开始和结尾，初始赋值
+		i = 0;
+		j = this.length-1;
+	}
+	i 	= parseInt(i);
+	j	= parseInt(j);
+	if(i >= j) return;
+	var begin 	= i;
+	var end 	= j;
+	var x = this[i];
+	while(i<j){
+		while(i<j && this[j]>=x) j--; //从后往前寻找小于x的值
+		if(i<j){
+			this[i] = this[j]; //从后面挖数前面的坑
+			i++; //前面的下表后移动
+			while(i<j && this[i]<=x) i++; //从前往后寻找大于x的值
+			if(i<j) this[j] = this[i]; //从前面挖数天后面的值
+		}
+	}
+	if(i != begin) this[i] = x;
+	this.qSort(begin, i-1);
+	this.qSort(i+1, end);
+}
+
+var arr = [5,14,5,6,7,7,2,1];
+arr.qSort();
+```
+输出：
+```javascript
+[1, 2, 5, 5, 6, 7, 7, 14]
 ```
