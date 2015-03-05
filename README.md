@@ -157,7 +157,6 @@ function insertSort(&$arr){
 				$arr[$j] 	= $arr[$j-1];
 				$arr[$j-1] 	= $tmp;
 			}
-	return $arr;
 }
 
 $arr = array(89,7,5,2,1,2,9);
