@@ -4,9 +4,15 @@
 		- [快速排序介绍](#快速排序)
 		- [分治法介绍](#分治法)
 		- [划分算法介绍](#划分方法)
-		- [代码示例](#代码示例)
-			- [php版](#php)
-			- [javascript版](#javascript)
+		- [代码示例](#代码示例_快速排序)
+			- [php版](#php_快速排序)
+			- [javascript版](#javascript_快速排序)
+	- [插入排序](#插入排序)
+		- [插入排序介绍](#插入排序介绍)
+		- [in-place算法](#in-place_algorithm)
+		- [代码示例](#代码示例_插入排序)
+			- [php版](#php_插入排序)
+			- [javascript版](#javascript_插入排序)
 
 
 ## 快速排序
@@ -41,9 +47,9 @@ BEGIN
 END
 ```
 
-###代码示例
+###代码示例_快速排序
 
-####php
+####php_快速排序
 ```php
 function qSort(&$arr, $i=null, $j=null)
 {
@@ -92,7 +98,7 @@ Array
 )
 ```
 
-####javascript
+####javascript_快速排序
 ```javascript
 Array.prototype.qSort=function(i,j){
 	if(this.length <= 1) return; //只剩一个元素，该子项排序ok
@@ -126,4 +132,72 @@ arr.qSort();
 输出：
 ```javascript
 [1, 2, 5, 5, 6, 7, 7, 14]
+```
+
+##插入排序
+
+###插入排序介绍
+插入排序是一种稳定的排序算法，平均时间复杂度为O(n2)
+插入排序算法的工作原理是通过构建有序数列，对于未排序的数据，在已排序的数列中从后向前扫描，找到相应位置并插入，这里可以看看[维基百科——插入排序](#http://zh.wikipedia.org/wiki/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F)。插入排序的实现上，通常采用[in-place算法](http://en.wikipedia.org/wiki/In-place_algorithm)(及使用很少的常数级别的额外空间的排序)，因而排序从后向前的扫描过程中，需要反复的弄懂已排好序的元素，为最新的元素提供插入空间
+
+###in-place_algorithm
+在计算机科学中，in-place算法指的是通过一个很小的,常数级别的,额外空间的数据结构去改变输入数据，输入数据通常被程序执行的输出数据重写。详细内容可以看看[维基百科——in-place算法](#http://en.wikipedia.org/wiki/In-place_algorithm)
+
+###代码示例_插入排序
+
+####php_插入排序
+```php
+function insertSort(&$arr){
+	if(!is_array($arr) || ($len = count($arr))<=1)
+		return (array)$arr;
+	for($i=1; $i<$len; $i++)
+		for($j=$i; $j>0; $j--)
+			if($arr[$j] < $arr[$j-1]){
+				$tmp 		= $arr[$j];
+				$arr[$j] 	= $arr[$j-1];
+				$arr[$j-1] 	= $tmp;
+			}
+	return $arr;
+}
+
+$arr = array(89,7,5,2,1,2,9);
+print_r(insertSort($arr));
+```
+输出
+```javascript
+Array
+(
+    [0] => 1
+    [1] => 2
+    [2] => 2
+    [3] => 5
+    [4] => 7
+    [5] => 9
+    [6] => 89
+)
+```
+
+####javascript_插入排序
+```javascript
+Array.prototype.insertSort=function(){
+	var len,i,j,tmp;
+	if((len=this.length) <= 1) return;
+	for(i=1; i<len; i++)
+		for(j=i; j>0; j--)
+			if(this[j]<this[j-1]){
+				tmp = this[j];
+				this[j] = this[j-1];
+				this[j-1] = tmp;
+			}
+}
+
+var arr = [89,7,5,2,1,2,9];
+console.log(arr);
+arr.insertSort();
+console.log(arr);
+```
+输出
+```javascript
+[ 89, 7, 5, 2, 1, 2, 9 ]
+[ 1, 2, 2, 5, 7, 9, 89 ]
 ```
